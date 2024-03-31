@@ -1,0 +1,24 @@
+{
+  "name": "fullstackopen-part13",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xakyth/FullStackOpen-part13.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xakyth/FullStackOpen-part13/issues"
+  },
+  "homepage": "https://github.com/xakyth/FullStackOpen-part13#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "pg": "^8.11.4",
+    "sequelize": "^6.37.2"
+  }
+}
