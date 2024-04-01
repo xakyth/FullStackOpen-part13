@@ -6,13 +6,9 @@ router.get('/', async (req, res) => {
   res.json(blogs);
 });
 
-router.post('/ ', async (req, res) => {
-  try {
-    const blog = await Blog.create(req.body);
-    res.json(blog);
-  } catch (error) {
-    res.status(400).json({ error });
-  }
+router.post('/', async (req, res) => {
+  const blog = await Blog.create(req.body);
+  res.json(blog);
 });
 
 const findById = async (req, res, next) => {
@@ -30,13 +26,9 @@ router.delete('/:id', findById, async (req, res) => {
 });
 
 router.put('/:id', findById, async (req, res) => {
-  if (req.blog) {
-    if (!isNaN(Number(req.body.likes))) req.blog.likes = req.body.likes;
-    req.blog = await req.blog.save();
-    res.json(req.blog);
-  } else {
-    res.status(404).end();
-  }
+  req.blog.likes = req.body.likes;
+  req.blog = await req.blog.save();
+  res.json(req.blog);
 });
 
 module.exports = router;
