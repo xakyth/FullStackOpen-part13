@@ -29,4 +29,14 @@ router.delete('/:id', findById, async (req, res) => {
   res.status(204).end();
 });
 
+router.put('/:id', findById, async (req, res) => {
+  if (req.blog) {
+    if (!isNaN(Number(req.body.likes))) req.blog.likes = req.body.likes;
+    req.blog = await req.blog.save();
+    res.json(req.blog);
+  } else {
+    res.status(404).end();
+  }
+});
+
 module.exports = router;
