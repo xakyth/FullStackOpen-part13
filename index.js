@@ -11,7 +11,8 @@ app.use('/api/blogs', blogsRouter);
 app.use('/api/users', usersRouter);
 
 const errorHandler = (error, req, res, next) => {
-  res.status(400).send({ error });
+  console.log(error);
+  res.status(400).send({ error: error.errors.map((e) => e.message) });
 };
 app.use(errorHandler);
 
