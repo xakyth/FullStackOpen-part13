@@ -32,11 +32,15 @@ const findById = async (req, res, next) => {
   next();
 };
 
-router.delete('/:id', findById, async (req, res) => {
+router.delete('/:id', tokenExtractor, findById, async (req, res) => {
   if (!req.blog) {
-    res.status(404).end();
-    return;
+    return res.status(404).end();
   }
+
+  if (req.blog.userId !== req.decodedToken.id) {
+    return res.status(400).json({ error: 'only creator can delete the blog' });
+  }
+
   await req.blog.destroy();
   res.status(204).end();
 });
