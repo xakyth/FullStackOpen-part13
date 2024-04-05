@@ -22,10 +22,13 @@ router.get('/', async (req, res) => {
   const search = req.query.search;
   console.log('search', search);
 
-  const where = {};
+  let where = {};
   if (search) {
-    where.title = {
-      [Op.iLike]: search,
+    where = {
+      [Op.or]: [
+        { title: { [Op.iLike]: `%${search}%` } },
+        { author: { [Op.iLike]: `%${search}%` } },
+      ],
     };
   }
 
