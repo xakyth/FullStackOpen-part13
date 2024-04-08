@@ -15,7 +15,6 @@ app.use('/api/login', loginRouter);
 app.use('/api/authors', authorRouter);
 
 const errorHandler = (error, req, res, next) => {
-  console.log(error);
   res.status(400).send({ error: error.errors.map((e) => e.message) });
 };
 app.use(errorHandler);
