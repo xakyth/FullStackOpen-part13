@@ -5,7 +5,6 @@ const { tokenExtractor } = require('../util/middleware');
 
 router.get('/', async (req, res) => {
   const search = req.query.search;
-  console.log('search', search);
 
   let where = {};
   if (search) {
