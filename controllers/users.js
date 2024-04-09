@@ -14,6 +14,14 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
+  const read = req.query.read;
+  const where = {};
+  if (read && read.toLocaleLowerCase() === 'true') {
+    where.read = true;
+  } else if (read && read.toLocaleLowerCase() === 'false') {
+    where.read = false;
+  }
+
   const user = await User.findByPk(id, {
     attributes: ['name', 'username'],
     include: [
@@ -21,7 +29,7 @@ router.get('/:id', async (req, res) => {
         model: Blog,
         as: 'readings',
         attributes: { exclude: ['userId'] },
-        through: { attributes: ['read', 'id'], as: 'readinglists' },
+        through: { attributes: ['read', 'id'], as: 'readinglists', where },
       },
     ],
   });
