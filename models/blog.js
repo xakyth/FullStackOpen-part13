@@ -37,6 +37,10 @@ Blog.init(
         },
       },
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   { sequelize, underscored: true, timestamps: false, modelName: 'blog' }
 );
