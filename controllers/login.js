@@ -2,7 +2,7 @@ const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 
 const { JWT_SECRET } = require('../util/config');
-const { User } = require('../models');
+const { User, ActiveSession } = require('../models');
 
 router.post('/', async (req, res) => {
   const user = await User.findOne({ where: { username: req.body.username } });
@@ -12,6 +12,9 @@ router.post('/', async (req, res) => {
   }
 
   const token = jwt.sign({ username: user.username, id: user.id }, JWT_SECRET);
+  const session = await ActiveSession.create({ token });
+  if (!session)
+    return res.status(500).json({ error: 'could not create a session' });
 
   res.status(200).json({
     token,
